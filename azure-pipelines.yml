@@ -8,15 +8,15 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
+  parallel: 1
 
-stages: 
-- stage: Build 
-  jobs: 
-   - job: Build_Job 
-     steps: 
-     - task: Maven@3  
-       inputs: 
-        mavenVersion: '3.x'  
-        mavenPomFile: 'pom.xml'  
-        goals: 'clean package'  
-        publishMavenArtifacts: true  
+stages:
+- stage: Build
+  jobs:
+  - job: Build_Job
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean package'
+        publishJUnitResults: true  
