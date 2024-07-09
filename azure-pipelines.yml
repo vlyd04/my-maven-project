@@ -9,15 +9,14 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean install'
-    options: '-Xmx1024m'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
+stages: 
+- stage: Build 
+  jobs: 
+   - job: Build_Job 
+     steps: 
+     - task: Maven@3  
+       inputs: 
+        mavenVersion: '3.x'  
+        mavenPomFile: 'pom.xml'  
+        goals: 'clean package'  
+        publishMavenArtifacts: true  
